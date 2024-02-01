@@ -1,0 +1,16 @@
+{
+  "name": "file-manager-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZhEkA717/file-manager-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
