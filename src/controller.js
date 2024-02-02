@@ -1,5 +1,5 @@
-import { cd, up } from './operations/navigation.js';
-import { ls } from './operations/fs.js';
+import { cd, up, ls } from './operations/navigation.js';
+import {  cat } from './operations/fs.js';
 
 const operations = {
     "up": (params) => {
@@ -18,7 +18,11 @@ const operations = {
             throw new Error('Invalid params');
         }
         await ls();
-    }
+    },
+
+    "cat": async (params) => {
+        await cat(params);
+    },
 }
 
 export const controller = async (command, params) => {

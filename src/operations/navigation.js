@@ -1,6 +1,7 @@
-import { stat } from 'fs/promises';
+import { readdir } from 'fs/promises';
 import { homedir } from 'os';
 import { normalize, resolve } from 'path';
+import { isDirectory, isFile, nameSort } from '../utils/helpers.js';
 
 let currentPath = homedir() + '/desktop/zheka';
 
@@ -12,16 +13,34 @@ export const cd = async (params) => {
     if (param === '..') {
         up();
     } else {
-        const path = resolve(currentPath, param);
-
-        const infoAboutPath = await stat(path);
-       
-        if (infoAboutPath.isDirectory()) {
-            currentPath = path;
+        try {
+            const path = resolve(currentPath, param);
+            if (await isDirectory(path)) {
+                currentPath = path;
+            }
+        } catch(err) {
+            console.log(err.message);
         }
-
     }
 }
+export const ls = async () => {
+    const list = (await readdir(getCurrentPath(), {
+        withFileTypes: true
+    })).map((item) => ({
+        Name: item.name,
+        Type: item.isDirectory() ? 'Directory' : 'File'
+    }));
 
+    const directories = list
+        .filter(item => item.Type === 'Directory')
+        .sort(nameSort);
+    const files = list.
+        filter(item => item.Type === 'File')
+        .sort(nameSort);
+        
+    console.table([...directories, ...files]);
+    
+}
 
 export const getCurrentPath = () => currentPath;
+

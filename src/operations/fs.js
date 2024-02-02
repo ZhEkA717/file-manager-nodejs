@@ -1,25 +1,34 @@
-import { readdir } from 'fs/promises';
+import { join } from 'path';
 import { getCurrentPath } from './navigation.js';
-import { nameSort } from '../utils/helpers.js';
+import { createReadStream } from 'fs';
+import { isFile } from '../utils/helpers.js';
 
-export const ls = async () => {
-    try {
-        const list = (await readdir(getCurrentPath(), {
-            withFileTypes: true
-        })).map((item) => ({
-            Name: item.name,
-            Type: item.isDirectory() ? 'Directory' : 'File'
-        }));
+export const cat = async (params) => {
+    const param = params.join(' ').trim();
+    const path = join(getCurrentPath(), param);
 
-        const directories = list
-            .filter(item => item.Type === 'Directory')
-            .sort(nameSort);
-        const files = list.
-            filter(item => item.Type === 'File')
-            .sort(nameSort);
-            
-        console.table([...directories, ...files]);
+    try{
+        if (await isFile(path)) {
+            const readableStream = createReadStream(path, "utf-8");
+            console.log(await read(readableStream));
+        }
     } catch(err) {
-        throw err;
+        console.log(err.message);
     }
+
 }
+
+const read = async (stream) => {
+    return new Promise(res => {
+        let data = "";
+        stream.on("data", (chunk) => {
+            data += chunk;
+        });
+
+        stream.on("end", () => {
+            res(data);
+        });
+    })
+};
+
+
