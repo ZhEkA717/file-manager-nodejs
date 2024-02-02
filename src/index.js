@@ -12,7 +12,7 @@ const inputStream = async (line, readline) => {
     }
 
     try {
-        controller(command, params);
+        await controller(command, params);
         showCurrentlyPath();
     } catch(err) {
         console.error(`Operation failed: ${err.message}`);

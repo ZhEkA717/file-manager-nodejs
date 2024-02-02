@@ -1,4 +1,4 @@
-import { homedir } from 'os';
+import { getCurrentPath } from '../operations/navigation.js';
 
 export const getUserName = () => {
     const userFlag = '--username=';
@@ -21,5 +21,5 @@ export const showGoodbye = (username) => {
 }
 
 export const showCurrentlyPath = () => {
-    console.log(`You are currently in ${homedir}`);
+    console.log(`You are currently in ${getCurrentPath()}`);
 }
