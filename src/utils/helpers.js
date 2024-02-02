@@ -31,7 +31,7 @@ export const isFile = async (path) => {
         const infoAboutPath = await stat(path);
         return infoAboutPath.isFile();
     } catch(err) {
-        throw err;
+        throw new Error(`${err.code}: no such file, stat '${path}'`);
     }
 }
 export const isDirectory = async (path) => {
@@ -39,6 +39,18 @@ export const isDirectory = async (path) => {
         const infoAboutPath = await stat(path);
         return infoAboutPath.isDirectory();
     } catch(err) {
-        throw err;
+        throw new Error(`${err.code}: no such directory, stat '${path}'`);
+    }
+}
+
+export const errNoParams = (params) => {
+    if (params.length !== 0) {
+        throw new Error('Invalid params');
+    }
+}
+
+export const checkParams = (params, count) => {
+    if (params.length !== count) {
+        throw new Error('Invalid params!');
     }
 }

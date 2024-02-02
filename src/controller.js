@@ -1,11 +1,10 @@
 import { cd, up, ls } from './operations/navigation.js';
-import {  cat } from './operations/fs.js';
+import {  add, cat, rn } from './operations/fs.js';
+import { checkParams, errNoParams } from './utils/helpers.js';
 
 const operations = {
     "up": (params) => {
-        if (params.length !== 0) {
-            throw new Error('Invalid params');
-        }
+        errNoParams(params);
         up();
     },
 
@@ -14,15 +13,23 @@ const operations = {
     },
 
     "ls": async (params) => {
-        if (params.length !== 0) {
-            throw new Error('Invalid params');
-        }
+        errNoParams(params);
         await ls();
     },
 
     "cat": async (params) => {
         await cat(params);
     },
+
+    "add": async (params) => {
+        await add(params);
+    },
+
+    "rn": async (params) => {
+        checkParams(params, 2);
+        await rn(params);
+    }
+
 }
 
 export const controller = async (command, params) => {

@@ -3,7 +3,7 @@ import { homedir } from 'os';
 import { normalize, resolve } from 'path';
 import { isDirectory, isFile, nameSort } from '../utils/helpers.js';
 
-let currentPath = homedir() + '/desktop/zheka';
+let currentPath = homedir();
 
 export const up = () => {
     currentPath = normalize(currentPath + '/..');
