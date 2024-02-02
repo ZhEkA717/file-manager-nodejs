@@ -2,7 +2,7 @@ import { stat } from 'fs/promises';
 import { homedir } from 'os';
 import { normalize, resolve } from 'path';
 
-let currentPath = homedir();
+let currentPath = homedir() + '/desktop/zheka';
 
 export const up = () => {
     currentPath = normalize(currentPath + '/..');

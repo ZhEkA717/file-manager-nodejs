@@ -1,4 +1,5 @@
 import { cd, up } from './operations/navigation.js';
+import { ls } from './operations/fs.js';
 
 const operations = {
     "up": (params) => {
@@ -16,7 +17,7 @@ const operations = {
         if (params.length !== 0) {
             throw new Error('Invalid params');
         }
-        ls();
+        await ls();
     }
 }
 

@@ -23,3 +23,4 @@ export const showGoodbye = (username) => {
 export const showCurrentlyPath = () => {
     console.log(`You are currently in ${getCurrentPath()}`);
 }
+export const nameSort = (a, b) => (a.Name > b.Name) ? 1 : (a.Name > b.Name) ? -1 : 0;
