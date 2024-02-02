@@ -2,7 +2,7 @@ import { join } from 'path';
 import { getCurrentPath } from './navigation.js';
 import { createReadStream } from 'fs';
 import { isFile } from '../utils/helpers.js';
-import { writeFile, rename } from 'fs/promises';
+import { writeFile, rename, unlink } from 'fs/promises';
 
 export const cat = async (params) => {
     const param = params.join(' ').trim();
@@ -51,6 +51,17 @@ export const rn = async (params) => {
         } catch(err) {
             console.log(err.message);
         }
+    }
+}
+
+export const rm = async (params) => {
+    const param = params.join(' ').trim();
+    const path = join(getCurrentPath(), param);
+
+    try {
+        await unlink(path);
+    } catch(err) {
+        console.log(err.message);
     }
 }
 

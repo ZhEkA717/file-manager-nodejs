@@ -1,5 +1,5 @@
 import { cd, up, ls } from './operations/navigation.js';
-import {  add, cat, rn } from './operations/fs.js';
+import {  add, cat, rn, rm } from './operations/fs.js';
 import { checkParams, errNoParams } from './utils/helpers.js';
 
 const operations = {
@@ -28,6 +28,10 @@ const operations = {
     "rn": async (params) => {
         checkParams(params, 2);
         await rn(params);
+    },
+
+    "rm": async (params) => {
+        await rm(params);
     }
 
 }
