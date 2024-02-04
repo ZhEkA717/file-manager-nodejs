@@ -2,6 +2,7 @@ import { cd, up, ls } from './operations/navigation.js';
 import {  add, cat, rn, rm, cp, mv } from './operations/fs.js';
 import { checkParams, errNoParams } from './utils/helpers.js';
 import { hash } from './operations/hash.js';
+import { os } from './operations/os.js';
 
 const operations = {
     "up": (params) => {
@@ -47,6 +48,10 @@ const operations = {
     "mv": async (params) => {
         checkParams(params, 2);
         await mv(params);
+    },
+    "os": (params) => {
+        checkParams(params, 1);
+        os(params);
     }
 
 }
